@@ -1,11 +1,14 @@
 #I think that i will need only nx and json
 import networkx as nx
 import json
+from urlparse import urlparse
 
 #A prototype for a url parser (from URL get domain)
 #this will considered the source
 def domainretrieve(link):
-    pass
+    parsed_uri = urlparse(link)
+    domain = '{uri.scheme}://{uri.netloc}/'.format(parsed_uri)
+    return domain
 
 filename='semantic-entities.json'
 
