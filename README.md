@@ -2,8 +2,8 @@
 A prototype of visualization, employing our great dataset using Vis.js
 
 #Requires
-[] pydot
-[] networkx
+* pydot
+* networkx
 
 Get them with:
 	pip install pydot networkx
