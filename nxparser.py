@@ -17,7 +17,7 @@ fh = open('semantic-entities.json')
 data = json.load(fh)
 
 ##Initialize NX graph
-G = nx.Graph()
+G = nx.MultiGraph()
 
 
 
@@ -39,10 +39,18 @@ for (idx,entity) in enumerate(data):
     if source not in G.nodes():
         G.add_node(source)
 
-    for (jdx, topic) in enumerate(data[idx]["annotations")]:
+    #Select the timestamp
+    ts = data[idx]["timestamp"][1]["$date"]
 
-            ##ROUTINE TO select for each topic those that are not present in the source edges
+    #For each topic add aNEW edge with the property timestamp
+    for (jdx, topic_properties) in enumerate(data[idx]["annotations")]:
+
+            topic = topic_properties["label"]
+
             #Create and edge
+
+            G.add_edge(source,topic,timestamp=ts)
+
                 ##Fr thos not present create a list of timestamps, set as property of the edge
             
             #Append to the edge's list the timestamp
