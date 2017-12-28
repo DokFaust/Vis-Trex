@@ -14,6 +14,8 @@ filename='semantic-entities.json'
 
 fh = open('semantic-entities.json')
 
+fc = open('graph.dot')
+
 data = json.load(fh)
 
 ##Initialize NX graph
@@ -65,7 +67,11 @@ for (idx,entity) in enumerate(data):
 #From the 
 
 
+#Write in DOT formt the graph
+write_dot(G,fc)
 
+close(fh)
+clos(fc)
 
 #Open the DOT file (possibly above the fh)
 
