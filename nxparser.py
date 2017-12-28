@@ -36,9 +36,16 @@ for (idx,entity) in enumerate(data):
 
     source = domainretrieve(data[idx]["url"])
 
-    G.
+    if source not in G.nodes():
+        G.add_node(source)
 
+    for (jdx, topic) in enumerate(data[idx]["annotations")]:
 
+            ##ROUTINE TO select for each topic those that are not present in the source edges
+            #Create and edge
+                ##Fr thos not present create a list of timestamps, set as property of the edge
+            
+            #Append to the edge's list the timestamp
     
 
 #PASS to retrieve domain to get the URL -> this considered the SOURCE
