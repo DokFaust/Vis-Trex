@@ -7,7 +7,7 @@ from urlparse import urlparse
 #this will considered the source
 def domainretrieve(link):
     parsed_uri = urlparse(link)
-    domain = '{uri.scheme}://{uri.netloc}/'.format(parsed_uri)
+    domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
     return domain
 
 filename='semantic-entities.json'
@@ -36,16 +36,16 @@ for (idx,entity) in enumerate(data):
     except KeyError:
         pass
 
-    source = domainretrieve(data[idx]["url"])
+    source = domainretrieve((data[idx]["url"]))
 
     if source not in G.nodes():
         G.add_node(source)
 
     #Select the timestamp
-    ts = data[idx]["timestamp"][1]["$date"]
+    ts = data[idx]["timestamp"]["$date"]
 
     #For each topic add aNEW edge with the property timestamp
-    for (jdx, topic_properties) in enumerate(data[idx]["annotations")]:
+    for (jdx, topic_properties) in enumerate(data[idx]["annotations"]):
 
             topic = topic_properties["label"]
 
