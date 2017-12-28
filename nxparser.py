@@ -14,8 +14,32 @@ filename='semantic-entities.json'
 
 fh = open('semantic-entities.json')
 
+data = json.load(fh)
+
+##Initialize NX graph
+G = nx.Graph()
+
+
+
 ##From here parse the JSON to get for each source the topics
 #Ie consider to loop on each entity |-> check for errors? TODO
+
+#Cycle for each entity
+
+for (idx,entity) in enumerate(data):
+
+    try:
+        if(data[idx]["error"]):
+            continue
+    except KeyError:
+        pass
+
+    source = domainretrieve(data[idx]["url"])
+
+    G.
+
+
+    
 
 #PASS to retrieve domain to get the URL -> this considered the SOURCE
 #Cycle through the annotations, retrieve the title -> add the to the graph
