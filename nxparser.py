@@ -1,20 +1,30 @@
 #I think that i will need only nx and json
 import networkx as nx
 import json
+import unicodedata
+
 from urlparse import urlparse
+
+#Substitute non-ascii characters from unicode string
+def normalize(unistr):
+    try:
+        normstr = unicodedata.normalize('NFKD', unistr).encode('ascii', 'ignore')
+        return normstr
+    except TypeError:
+        return unistr
 
 #A prototype for a url parser (from URL get domain)
 #this will considered the source
 def domainretrieve(link):
     parsed_uri = urlparse(link)
     domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-    return domain
+    return normalize(domain)
 
 filename='semantic-entities.json'
 
 fh = open('semantic-entities.json')
 
-fc = open('graph.dot')
+fc = open('graph.dot','w')
 
 data = json.load(fh)
 
@@ -47,7 +57,7 @@ for (idx,entity) in enumerate(data):
     #For each topic add aNEW edge with the property timestamp
     for (jdx, topic_properties) in enumerate(data[idx]["annotations"]):
 
-            topic = topic_properties["label"]
+            topic = normalize(topic_properties["label"])
 
             #Create and edge
 
@@ -68,10 +78,11 @@ for (idx,entity) in enumerate(data):
 
 
 #Write in DOT formt the graph
-write_dot(G,fc)
+nx.drawing.nx_pydot.write_dot(G,fc)
 
-close(fh)
-clos(fc)
+fh.close()
+fc.close()
+
 
 #Open the DOT file (possibly above the fh)
 
