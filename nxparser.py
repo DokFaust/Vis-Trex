@@ -4,6 +4,7 @@ import json
 import unicodedata
 
 from urlparse import urlparse
+from random import random as rnd
 
 #Substitute non-ascii characters from unicode string
 def normalize(unistr):
@@ -45,6 +46,9 @@ for (idx,entity) in enumerate(data):
             continue
     except KeyError:
         pass
+#Consider only the 20 percent of the entries of our 
+    if(rnd() > 0.05):
+        continue        
 
     source = domainretrieve((data[idx]["url"]))
 
@@ -68,24 +72,8 @@ for (idx,entity) in enumerate(data):
             #Append to the edge's list the timestamp
     
 
-#PASS to retrieve domain to get the URL -> this considered the SOURCE
-#Cycle through the annotations, retrieve the title -> add the to the graph
-
-#In the above cycle and edge property will be the timestamp here comes the only
-#hard part : if teh edge is still present; then the new timestamp must be appended to a list
-#OK i will check it with has_edge
-#From the 
-
-
 #Write in DOT formt the graph
 nx.drawing.nx_pydot.write_dot(G,fc)
 
 fh.close()
 fc.close()
-
-
-#Open the DOT file (possibly above the fh)
-
-#Write the graph on the DOT file
-
-#Close both files
